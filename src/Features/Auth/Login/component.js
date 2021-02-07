@@ -1,37 +1,59 @@
-import React, { Component } from 'react';
-import { Container, Form, Item, Input, Label, Button, Text } from 'native-base';
+import React, { useState } from 'react';
+import { Container, Form, Item, Input, Label, Button, Text, Icon } from 'native-base';
 import styles from './Style';
 import { View, Image } from 'react-native';
 import Logo from '../../../assets/paypal-letter-logo-in-a-circle.png';
 
-export default class LoginComponent extends Component {
-    render() {
-        return (
-            <Container style={styles.root}>
-                <View style={styles.wrapper}>
-                    <View style={styles.wrapperLogo}>
-                        <Image style={styles.logo} source={Logo} />
-                    </View>
-                    <Form>
-                        <Item floatingLabel>
-                            <Label>Username</Label>
-                            <Input />
-                        </Item>
-                        <Item floatingLabel last>
-                            <Label>Password</Label>
-                            <Input />
-                        </Item>
-                    </Form>
-                    <View style={styles.control}>
-                        <Button full rounded>
-                            <Text>Login</Text>
-                        </Button>
-                        <Button full transparent light>
-                            <Text>Register</Text>
-                        </Button>
-                    </View>
-                </View>
-            </Container>
-        );
+export default function LoginComponent() {
+    const [secureTextEntry, setSecureTextEntry] = useState(true);
+
+    function switchTextEntry() {
+        setSecureTextEntry(!secureTextEntry);
     }
+
+    return (
+        <Container style={styles.root}>
+            <View style={styles.wrapper}>
+                <View style={styles.wrapperLogo}>
+                    <Image style={styles.logo} source={Logo} />
+                </View>
+                <Form style={styles.form}>
+                    <Item floatingLabel>
+                        <Label style={styles.inputLabel}>Username</Label>
+                        <Input />
+                    </Item>
+                    <Item floatingLabel >
+                        <Label style={styles.inputLabel}>Password</Label>
+                        <Input secureTextEntry={secureTextEntry} />
+                        {
+                            secureTextEntry
+                                ? <Icon
+                                    active
+                                    type="FontAwesome"
+                                    name="eye"
+                                    style={styles.textBoxIcon}
+                                    onPress={switchTextEntry}
+                                />
+                                : <Icon
+                                    active
+                                    type="FontAwesome"
+                                    name="eye-slash"
+                                    style={styles.textBoxIcon}
+                                    onPress={switchTextEntry}
+                                />
+                        }
+                    </Item>
+                </Form>
+                <View style={styles.control}>
+                    <Button full rounded>
+                        <Text style={styles.whiteText}>Login</Text>
+                    </Button>
+                    <Button full transparent light>
+                        <Text style={styles.whiteText}>Register</Text>
+                    </Button>
+                </View>
+            </View>
+        </Container>
+    );
+
 }
