@@ -4,8 +4,20 @@ import styles from './Style';
 import { View, Image } from 'react-native';
 import Logo from '../../../assets/paypal-letter-logo-in-a-circle.png';
 
-export default function LoginComponent() {
+export default function LoginComponent(props) {
+    const { handleSubmit } = props;
     const [secureTextEntry, setSecureTextEntry] = useState(true);
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    });
+
+    function handleChangeText(fieldName, text) {
+        setUser({
+            ...user,
+            [fieldName]: text
+        });
+    }
 
     function switchTextEntry() {
         setSecureTextEntry(!secureTextEntry);
@@ -19,12 +31,19 @@ export default function LoginComponent() {
                 </View>
                 <Form style={styles.form}>
                     <Item floatingLabel>
-                        <Label style={styles.inputLabel}>Username</Label>
-                        <Input />
+                        <Label style={styles.inputLabel}>Email</Label>
+                        <Input
+                            value={user.email}
+                            onChangeText={(text) => { handleChangeText("email", text) }}
+                        />
                     </Item>
                     <Item floatingLabel >
                         <Label style={styles.inputLabel}>Password</Label>
-                        <Input secureTextEntry={secureTextEntry} />
+                        <Input
+                            secureTextEntry={secureTextEntry}
+                            value={user.password}
+                            onChangeText={(text) => { handleChangeText("password", text) }}
+                        />
                         {
                             secureTextEntry
                                 ? <Icon
@@ -45,7 +64,7 @@ export default function LoginComponent() {
                     </Item>
                 </Form>
                 <View style={styles.control}>
-                    <Button full rounded>
+                    <Button full rounded onPress={() => { handleSubmit(user) }}>
                         <Text style={styles.whiteText}>Login</Text>
                     </Button>
                     <Button full transparent light>
