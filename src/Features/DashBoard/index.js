@@ -20,23 +20,21 @@ export default function Dashboard() {
 
       <Footer>
         <FooterTab>
-          <Button badge vertical>
-            <Badge><Text>2</Text></Badge>
-            <Icon name="apps" />
-            <Text>Apps</Text>
+          <Button vertical>
+            <Icon type="FontAwesome" name="pencil" />
+            <Text>Nhập vào</Text>
           </Button>
           <Button vertical>
-            <Icon name="camera" />
-            <Text>Camera</Text>
+            <Icon type="FontAwesome" name="paper-plane" />
+            <Text>Kế Hoạch</Text>
           </Button>
-          <Button active badge vertical>
-            <Badge ><Text>51</Text></Badge>
-            <Icon active name="navigate" />
-            <Text>Navigate</Text>
+          <Button active vertical>
+            <Icon type="FontAwesome" name="pie-chart" />
+            <Text>Báo Cáo</Text>
           </Button>
           <Button vertical>
-            <Icon name="person" />
-            <Text>Contact</Text>
+            <Icon type="Feather" name="more-horizontal" />
+            <Text>Khác</Text>
           </Button>
         </FooterTab>
       </Footer>

@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react'
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import firebaseApp from '../../../firebase';
 
 export default function Loading({ navigation }) {
 
     useEffect(() => {
-        async function checkUserId() {
-            const uid = AsyncStorage.getItem('uid');
-            if (!uid) {
+        firebaseApp.auth().onAuthStateChanged(userAuth => {
+            if (!userAuth) {
                 navigation.navigate('Login');
-            }else {
+            } else {
                 navigation.navigate('Dashboard');
             }
-        }
-        checkUserId();
+        })
     }, []);
     return (
         <View style={styles.container}>
