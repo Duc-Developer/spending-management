@@ -1,12 +1,19 @@
 import React, { useEffect } from 'react'
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Loading({navigation}) {
+export default function Loading({ navigation }) {
 
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            navigation.navigate('Login');
-        }, 2000);
+        async function checkUserId() {
+            const uid = AsyncStorage.getItem('uid');
+            if (!uid) {
+                navigation.navigate('Login');
+            }else {
+                navigation.navigate('Dashboard');
+            }
+        }
+        checkUserId();
     }, []);
     return (
         <View style={styles.container}>
