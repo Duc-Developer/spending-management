@@ -1,22 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Platform, Image, Text, View } from 'react-native'
+import { createSwitchNavigator, createAppContainer } from 'react-navigation'
+// import the different screens
+import WelcomeScreen from './src/Features/WelcomeScreen';
+import Register from './src/Features/Auth/Register';
+import Login from './src/Features/Auth/Login';
 import Dashboard from './src/Features/DashBoard';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Dashboard />
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+// create our app's navigation stack
+const App = createAppContainer(createSwitchNavigator(
+  {
+    WelcomeScreen,
+    Register,
+    Login,
+    Dashboard
   },
-});
+  {
+    initialRouteName: 'WelcomeScreen'
+  }
+))
+export default App
